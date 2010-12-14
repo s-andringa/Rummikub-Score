@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rummikub Score</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script src="prototype.js" type="text/javascript"></script>
+    <script src="rummikub.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      document.on('dom:loaded', function(e){
+        $('version').update(Rummikub.Version)
+        
+        var checkControls = function(board, player){
+          $$('#controls > *[id^=new-player]').each(Form.Element[board.players.length >= board.options.maxPlayers ? 'disable' : 'enable'])
+        }
+        
+        board = new Rummikub.ScoreBoard('score-board', {
+          players: ['Tity', 'Wytse', 'Grytsje', 'Sjoerd'],
+          afterAddPlayer: checkControls,
+          afterRemovePlayer: checkControls
+        })
+        
+        var addPlayerFromField = function(){
+          var nameField = $('new-player-name')
+          if(!$F(nameField).blank()){
+            board.addPlayer($F(nameField))
+            nameField.clear()
+          }else{
+            alert('Vul een naam in.')
+          }
+        }
+        
+        $('new-player-name').on('keydown', function(e){
+          if(e.keyCode == Event.KEY_RETURN) addPlayerFromField()
+        }.bind(this))
+        $('new-player-btn').on('click', addPlayerFromField)
+        $('new-game-btn').on('click', function(){ board.addGame() })
+        $('refresh-btn').on('click', function(){ window.location.reload() })
+      })
+    </script>
+  </head>
+  <body>
+    <div id="content">
+      <h1>Rummikub Score <span id="version"></span></h1>
+      <table id="score-board"></table>
+      <div id="controls">
+        <input type="text" id="new-player-name">
+        <button id="new-player-btn"/>Speler toevoegen</button> |
+        <button id="new-game-btn"/>Spel toevoegen</button> |
+        <button id="refresh-btn" title="Rummikub Score herladen"/>&nbsp;</button>
+      </div>
+    </div>
+    <footer>
+      Rummikub Score werkt het best in <a href="http://www.google.com/chrome" title="Chrome: Google's webbrowser">Chrome</a>.
+    </footer>
+  </body>
+</html>
