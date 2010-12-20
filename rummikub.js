@@ -97,7 +97,7 @@ Rummikub = {
     },
     
     parseScore: function(string){
-      return (!string.match(/\d+/)) ? 0 : parseInt(string, 10)
+      return (!string.match(/^\d+$/)) ? 0 : parseInt(string, 10)
     },
     
     _playerCount: 1,
