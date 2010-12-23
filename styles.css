@@ -98,7 +98,7 @@ button[disabled] {
 }
 
 #score-board input[type=number] {
-  width: 66px;
+  width: 74px;
 }
 
 #score-board tr.game-complete input[type=number] {
